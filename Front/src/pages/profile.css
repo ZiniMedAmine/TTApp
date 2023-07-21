@@ -1,0 +1,48 @@
+.profile-container{
+    display: flex;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: column;
+  }
+
+  .card{
+    width: 45vw;
+    border-radius: 25px;
+    padding: 15px;
+    min-height: 35vh;
+  }
+  .card-title{
+    text-align: center;
+    color: #001e8c;
+    font-weight: bold;
+  }
+  .UserIcon{
+    width: 15vw;
+  }
+  
+  @media (max-width: 1199.98px) { 
+    .UserIcon{
+      width: 45vw;
+    }
+    .card{
+      width: 90vw;
+    }
+  }
+  
+  .editProfileButton {
+    width: 50%;
+    margin-left: 25%;
+    background: linear-gradient(to left, rgba(0, 30, 140, 1) 0%, rgba(43, 167, 218, 1) 100%);
+    border: none;
+    transition : 0.7s;
+  
+  }
+  
+  .editProfileButton:hover {
+    background: linear-gradient(to right, rgba(0, 30, 140, 1) 0%, rgba(43, 167, 218, 1) 100%);
+  }
+  #creer{
+    align-self: center;
+  }

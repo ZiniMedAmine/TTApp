@@ -1,0 +1,57 @@
+.home-card{
+    padding: 20px;
+    width: 250px;
+    height: 250px;
+    text-align: center;
+    position: relative;
+    user-select: none;
+
+}
+
+.white{
+    display: none;
+}
+
+.home-card:hover .colorful{
+    display: none;
+}
+
+.home-card:hover .white{
+    display: block;
+    margin-inline: auto;
+}
+.cardtxt{
+    background: -webkit-linear-gradient(#2BA7DA, #001e8c);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.home-card:hover .cardtxt{
+    background: white;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.home-card:hover {
+    background: linear-gradient(45deg,#001e8c,#2BA7DA); 
+    border-radius: 20%;
+    cursor: pointer;
+
+}
+
+.home-card::before{
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 20%; 
+    padding: 5px; 
+    background:linear-gradient(45deg,#001e8c,#2BA7DA); 
+    -webkit-mask: 
+       linear-gradient(#fff 0 0) content-box, 
+       linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+            mask-composite: exclude; 
+}
+
+.cardicons{
+    height: 100px;
+    
+}

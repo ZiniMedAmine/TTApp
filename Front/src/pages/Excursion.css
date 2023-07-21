@@ -1,0 +1,54 @@
+.container{
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .ExcursionIcon{
+    width: 40px;
+  }
+  .card{
+    width: 45vw;
+    border-radius: 25px;
+    padding: 15px;
+    min-height: 35vh;
+  }
+  .card-title{
+    text-align: center;
+    color: #001e8c;
+    font-weight: bold;
+  }
+  .ExcursionIcon{
+    width: 20vw;
+  }
+  
+  @media (max-width: 1199.98px) { 
+    .container{
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: flex-start;
+    }
+    .ExcursionIcon{
+      width: 50vw;
+    }
+    .card{
+      width: 90vw;
+    }
+  }
+  
+  .addExcursionButton {
+    width: 50%;
+    margin-left: 25%;
+    background: linear-gradient(to left, rgba(0, 30, 140, 1) 0%, rgba(43, 167, 218, 1) 100%);
+    border: none;
+    transition : 0.7s;
+  
+  }
+  
+  .addExcursionButton:hover {
+    background: linear-gradient(to right, rgba(0, 30, 140, 1) 0%, rgba(43, 167, 218, 1) 100%);
+  }
+  #creer{
+    align-self: center;
+  }

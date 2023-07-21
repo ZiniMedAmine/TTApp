@@ -1,0 +1,3 @@
+primaire : #001e8c
+sec : #F22980
+third : #2BA7DA
