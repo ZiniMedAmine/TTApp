@@ -3,9 +3,56 @@ import logo from "../img/TT.png";
 import userIcon from "../img/user.png";
 import passIcon from "../img/pass.png";
 import { Link } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+
+const MySwal = withReactContent(Swal);
 
 function Login() {
+  const [matricule, setMatricule] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
+  function handleLogin() {
+    axios
+      .post("http://localhost:3001/users/login", {
+        matricule: matricule,
+        password: password,
+      })
+      .then(({ data }) => {
+        if (data.token) {
+          localStorage.setItem("token", data.token);
+          navigate("/home");
+          const Toast = MySwal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener("mouseenter", Swal.stopTimer);
+              toast.addEventListener("mouseleave", Swal.resumeTimer);
+            },
+          });
+
+          Toast.fire({
+            icon: "success",
+            title: "Signed in successfully",
+          });
+        }
+      })
+      .catch(() => {
+        MySwal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "matricule ou mot de passe invalide",
+        });
+      });
+  }
+
   useEffect(() => {
     document.title = "Login";
   });
@@ -32,6 +79,10 @@ function Login() {
               <div className="form-floating">
                 <input
                   type="text"
+                  value={matricule}
+                  onChange={(event) => {
+                    setMatricule(event.target.value);
+                  }}
                   className="form-control"
                   placeholder="Matricule"
                   id="matricule"
@@ -48,6 +99,10 @@ function Login() {
               <div className="form-floating">
                 <input
                   type="text"
+                  value={password}
+                  onChange={(event) => {
+                    setPassword(event.target.value);
+                  }}
                   className="form-control"
                   placeholder="Password"
                   aria-label="Password"
@@ -57,7 +112,11 @@ function Login() {
                 <label for="floatingPassword">Password</label>
               </div>
             </div>
-            <button type="button" className="btn btn-primary btn-lg login-btn">
+            <button
+              type="button"
+              onClick={handleLogin}
+              className="btn btn-primary btn-lg login-btn"
+            >
               Login
             </button>
           </div>

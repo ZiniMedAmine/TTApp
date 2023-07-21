@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const connectDB = require("./dbConn");
 const userRouters = require("./routers/userRouters");
 const cors = require("cors");
+require("dotenv").config();
 
 connectDB();
 

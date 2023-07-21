@@ -11,11 +11,33 @@ import userWhite from "../img/userWhite.png";
 import HomeCard from "../components/HomeCard";
 import { Link } from "react-router-dom";
 import TTLOGO from "../img/TT.png";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Home() {
+  const navigate = useNavigate();
+
+
   useEffect(() => {
     document.title = "Home";
+
+    const token = localStorage.getItem('token');
+
+    axios
+    .post("http://localhost:3001/users/verify", {
+      token: token,
+    })
+    .then(({ data }) => {
+      if (!data.verified){
+        navigate("/");
+      }
+    })
+    .catch(() => {
+      navigate("/");
+    });
   });
+
+
 
   const cardList = [
     { title: "Ticket", img: ticket, imgWhite: ticketWhite, link: "/ticket" },
