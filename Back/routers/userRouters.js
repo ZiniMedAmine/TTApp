@@ -42,7 +42,12 @@ router.post("/login", async (req, res) => {
     }
   );
 
-  res.json({ token: token });
+  res.json({
+    token: token,
+    id: user._id,
+    nom: user.nom,
+    isAdmin: user.isAdmin,
+  });
 });
 
 module.exports = router;

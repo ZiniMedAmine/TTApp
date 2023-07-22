@@ -1,7 +1,19 @@
 import "./Navb.css";
 import { Link } from "react-router-dom";
 import TTLOGO from "../img/TT.png";
+import { useNavigate } from "react-router-dom";
+
 function Navbar(prop) {
+  const navigate = useNavigate();
+
+  function logout(){
+    localStorage.removeItem('token');
+    localStorage.removeItem('nom')
+    localStorage.removeItem('id')
+    localStorage.removeItem('isAdmin')
+    navigate('/')
+  }
+
   return (
     <div className="nvb">
       <nav className="navbar fixed-top navbar-expand-lg bg-body-tertiary navbar-dark">
@@ -64,6 +76,16 @@ function Navbar(prop) {
                 >
                   {" "}
                   Profile
+                </Link>
+              </li>
+              <li class="nav-item">
+                <Link
+                onClick={logout}
+                  className={
+                    "nav-link "
+                  }
+                >
+                  Logout
                 </Link>
               </li>
             </ul>

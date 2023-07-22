@@ -25,6 +25,9 @@ function Login() {
       .then(({ data }) => {
         if (data.token) {
           localStorage.setItem("token", data.token);
+          localStorage.setItem("id", data.id);
+          localStorage.setItem("nom", data.nom);
+          localStorage.setItem("isAdmin", data.isAdmin);
           navigate("/home");
           const Toast = MySwal.mixin({
             toast: true,
