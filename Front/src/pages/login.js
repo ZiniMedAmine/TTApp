@@ -53,7 +53,14 @@ function Login() {
           title: "Oops...",
           text: "matricule ou mot de passe invalide",
         });
+        setPassword('')
       });
+  }
+
+  function handleEnterLogin(e){
+    if (e.key === 'Enter') {
+      handleLogin() 
+    }
   }
 
   useEffect(() => {
@@ -70,7 +77,7 @@ function Login() {
 
   return (
     <div className="App">
-      <div className="container">
+      <div className="container"  onKeyDown={handleEnterLogin}>
         <img src={logo} alt="Logo" className="logo" />
         <div className="card">
           <div className="card-body">
