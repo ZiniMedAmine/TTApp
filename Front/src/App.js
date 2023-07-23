@@ -19,7 +19,7 @@ function App() {
     console.log("Location changed!", location.pathname);
     const token = localStorage.getItem("token");
 
-    if (location.pathname != "/" && location.pathname != "signup") {
+    if (location.pathname != "/" && location.pathname != "/signup") {
       axios
         .post("http://localhost:3001/users/verify", {
           token: token,
