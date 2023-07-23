@@ -20,6 +20,25 @@ router.post("/verify", async (req, res) => {
   });
 });
 
+// update
+router.patch("/:id", async (req, res) => {
+  const { id } = req.params;
+  const data = req.body;
+  await User.updateOne({ _id: id }, data);
+  console.log("User updated");
+  res.json({ message: "User updated" });
+});
+
+// getting the data of a user
+router.get("/:id", async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    res.json(user);
+  } catch (error) {
+    res.status(500).json({ error: "Error fetching user data" });
+  }
+});
+
 router.post("/login", async (req, res) => {
   const { matricule, password } = req.body;
 

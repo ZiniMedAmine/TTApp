@@ -1,0 +1,14 @@
+.modall{
+    margin-bottom: 4vh;
+}
+.modalbtn {
+    width: 200px;
+    background: linear-gradient(to left, rgba(0, 30, 140, 1) 0%, rgba(43, 167, 218, 1) 100%);
+    border: none;
+    transition : 0.7s;
+  
+  }
+  
+.modalbtn:hover {
+    background: linear-gradient(to right, rgba(0, 30, 140, 1) 0%, rgba(43, 167, 218, 1) 100%);
+  }
