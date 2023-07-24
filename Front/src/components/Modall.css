@@ -12,3 +12,8 @@
 .modalbtn:hover {
     background: linear-gradient(to right, rgba(0, 30, 140, 1) 0%, rgba(43, 167, 218, 1) 100%);
   }
+.tdContainer{
+  display: flex;
+  flex-wrap: nowrap;
+  height: 100%;
+}

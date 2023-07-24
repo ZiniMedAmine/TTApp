@@ -29,6 +29,12 @@ router.patch("/:id", async (req, res) => {
   res.json({ message: "User updated" });
 });
 
+//get all users
+router.get("/all", async (req, res) => {
+  const users = await User.find({ isAdmin: false });
+  res.json(users);
+});
+
 // getting the data of a user
 router.get("/:id", async (req, res) => {
   try {
@@ -37,6 +43,13 @@ router.get("/:id", async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: "Error fetching user data" });
   }
+});
+
+router.delete("/:id", async (req, res) => {
+  const { id } = req.params;
+  await User.deleteOne({ _id: id });
+  console.log("User deleted");
+  res.json({ message: "User deleted" });
 });
 
 router.post("/login", async (req, res) => {

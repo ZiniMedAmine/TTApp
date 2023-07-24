@@ -31,7 +31,7 @@ function ProfileTable() {
             console.error(error);
           });
       }
-    }, []);
+    });
 
     function changeUserData() {
         axios

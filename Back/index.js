@@ -2,7 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const connectDB = require("./dbConn");
 const userRouters = require("./routers/userRouters");
-const ticketRouters = require("./routers/ticketRouters")
+const ticketRouters = require("./routers/ticketRouters");
 const cors = require("cors");
 require("dotenv").config();
 
@@ -16,7 +16,6 @@ app.use(express.json());
 
 app.use("/users", userRouters);
 app.use("/ticket", ticketRouters);
-
 
 app.post("/create", (req, res) => {
   res.json({ id: req.params.id });
