@@ -5,7 +5,7 @@
     align-items: center;
     justify-content: space-between;
   }
-  .icon{
+  .ExcursionIcon{
     width: 40px;
   }
   .card{
@@ -19,7 +19,7 @@
     color: #001e8c;
     font-weight: bold;
   }
-  .ticketIcon{
+  .ExcursionIcon{
     width: 20vw;
   }
   
@@ -29,16 +29,15 @@
       justify-content: center;
       align-items: flex-start;
     }
-    .ticketIcon{
+    .ExcursionIcon{
       width: 50vw;
-
     }
     .card{
       width: 90vw;
     }
   }
   
-  .addTicketButton {
+  .addExcursionButton {
     width: 50%;
     margin-left: 25%;
     background: linear-gradient(to left, rgba(0, 30, 140, 1) 0%, rgba(43, 167, 218, 1) 100%);
@@ -47,20 +46,9 @@
   
   }
   
-  .addTicketButton:hover {
+  .addExcursionButton:hover {
     background: linear-gradient(to right, rgba(0, 30, 140, 1) 0%, rgba(43, 167, 218, 1) 100%);
   }
   #creer{
     align-self: center;
   }
-
-  .radio-form{
-    border:solid 1px #d3d3d3;
-    border-radius: 10px;
-    padding: 7px;
-  }
-.TicketContainer{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}

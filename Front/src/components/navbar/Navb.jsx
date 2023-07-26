@@ -1,17 +1,17 @@
 import "./Navb.css";
 import { Link } from "react-router-dom";
-import TTLOGO from "../img/TT.png";
+import TTLOGO from "../../img/TT.png";
 import { useNavigate } from "react-router-dom";
 
 function Navbar(prop) {
   const navigate = useNavigate();
 
-  function logout(){
-    localStorage.removeItem('token');
-    localStorage.removeItem('nom')
-    localStorage.removeItem('id')
-    localStorage.removeItem('isAdmin')
-    navigate('/')
+  function logout() {
+    localStorage.removeItem("token");
+    localStorage.removeItem("nom");
+    localStorage.removeItem("id");
+    localStorage.removeItem("isAdmin");
+    navigate("/");
   }
 
   return (
@@ -79,12 +79,7 @@ function Navbar(prop) {
                 </Link>
               </li>
               <li class="nav-item">
-                <Link
-                onClick={logout}
-                  className={
-                    "nav-link "
-                  }
-                >
+                <Link onClick={logout} className={"nav-link "}>
                   Logout
                 </Link>
               </li>

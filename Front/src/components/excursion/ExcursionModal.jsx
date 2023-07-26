@@ -1,19 +1,18 @@
-import "./Modall.css";
+import "./ExcursionModal.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
-
 const MySwal = withReactContent(Swal);
 
-function Modal(props) {
+function ExcursionModal() {
   const [data, setData] = useState([]);
 
-  function deleteUser(id) {
+  function deleteExcursion(id) {
     axios
-      .delete(`http://localhost:3001/users/${id}`)
+      .delete(`http://localhost:3001/excursion/${id}`)
       .then((response) => {
-        const filtredData = data.filter((user) => user._id !== id);
+        const filtredData = data.filter((excursion) => excursion._id !== id);
         setData(filtredData);
         const Toast = MySwal.mixin({
           toast: true,
@@ -29,7 +28,7 @@ function Modal(props) {
 
         Toast.fire({
           icon: "success",
-          title: "User deleted successfully",
+          title: "Excursion deleted successfully",
         });
       })
       .catch((error) => {
@@ -37,13 +36,46 @@ function Modal(props) {
       });
   }
 
-  function modifyUser(id) {
-    //
+  function modifyExcursion(excursion) {
+    excursion.nom = excursion.nomEdit;
+    excursion.age = excursion.ageEdit;
+    excursion.typeChambre = excursion.typeEdit;
+
+    excursion.editMode = false;
+    setData(data.slice());
+
+    axios
+      .patch(`http://localhost:3001/excursion/${excursion._id}`, {
+        nom: excursion.nom,
+        age: excursion.age,
+        typeChambre: excursion.typeEdit,
+      })
+      .then((response) => {
+        const Toast = MySwal.mixin({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 2000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener("mouseenter", Swal.stopTimer);
+            toast.addEventListener("mouseleave", Swal.resumeTimer);
+          },
+        });
+
+        Toast.fire({
+          icon: "success",
+          title: "excursion updated successfully",
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3001/users/all`)
+      .get(`http://localhost:3001/excursion/all`)
       .then((response) => {
         const data = response.data;
         for (let i = 0; i < data.length; i++) {
@@ -57,14 +89,14 @@ function Modal(props) {
   }, []);
 
   return (
-    <div className="modall">
+    <div className="modall mt-4">
       <button
         type="button"
         class="btn btn-primary modalbtn"
         data-bs-toggle="modal"
         data-bs-target="#staticBackdrop"
       >
-        Gérer les comptes
+        Gérer les excursions
       </button>
 
       <div
@@ -95,29 +127,29 @@ function Modal(props) {
                   <tr>
                     <th scope="col">Matricule</th>
                     <th scope="col"> Nom & Prénom </th>
-                    <th scope="col"> Téléphone </th>
-                    <th scope="col"> Adresse</th>
-                    <th scope="col"> E-mail</th>
-                    <th scope="col"> Password </th>
-                    <th scope="col"> Action </th>
+                    <th scope="col"> age </th>
+                    <th scope="col"> Type de chambre</th>
+                    <th scope="col">Action</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {data.map((user) => {
-                    if (!user.editMode)
+                  {data.map((excursion) => {
+                    if (!excursion.editMode)
                       return (
                         <tr>
-                          <td>{user.matricule}</td>
-                          <td>{user.nom}</td>
-                          <td>{user.tel}</td>
-                          <td>{user.adresse}</td>
-                          <td>{user.email}</td>
-                          <td>{user.password}</td>
+                          <td>{excursion.matricule}</td>
+                          <td>{excursion.nom}</td>
+                          <td>{excursion.age}</td>
+                          <td>{excursion.typeChambre}</td>
                           <td>
                             <div className="tdContainer">
                               <button
                                 onClick={() => {
-                                  user.editMode = true;
+                                  excursion.editMode = true;
+
+                                  excursion.nomEdit = excursion.nom;
+                                  excursion.ageEdit = excursion.age;
+                                  excursion.typeEdit = excursion.typeChambre;
 
                                   setData(data.slice());
                                 }}
@@ -128,7 +160,7 @@ function Modal(props) {
                               <button
                                 className="btn btn-danger btn-sm ms-2"
                                 onClick={() => {
-                                  deleteUser(user._id);
+                                  deleteExcursion(excursion._id);
                                 }}
                               >
                                 Supprimer
@@ -140,14 +172,25 @@ function Modal(props) {
                     else
                       return (
                         <tr>
-                          <td>{user.matricule}</td>
+                          <td>{excursion.matricule}</td>
                           <td>
                             <input
                               class="form-control form-control-sm"
                               type="text"
-                              value={user.nom}
+                              value={excursion.nomEdit}
                               onChange={(event) => {
-                                user.nom = event.target.value;
+                                excursion.nomEdit = event.target.value;
+                                setData(data.slice());
+                              }}
+                            ></input>
+                          </td>
+                          <td>
+                            <input
+                              class="form-control form-control-sm"
+                              type="number"
+                              value={excursion.ageEdit}
+                              onChange={(event) => {
+                                excursion.ageEdit = event.target.value;
                                 setData(data.slice());
                               }}
                             ></input>
@@ -156,42 +199,9 @@ function Modal(props) {
                             <input
                               class="form-control form-control-sm"
                               type="text"
-                              value={user.tel}
+                              value={excursion.typeEdit}
                               onChange={(event) => {
-                                user.nom = event.target.value;
-                                setData(data.slice());
-                              }}
-                            ></input>
-                          </td>
-                          <td>
-                            <input
-                              class="form-control form-control-sm"
-                              type="text"
-                              value={user.adresse}
-                              onChange={(event) => {
-                                user.nom = event.target.value;
-                                setData(data.slice());
-                              }}
-                            ></input>
-                          </td>
-                          <td>
-                            <input
-                              class="form-control form-control-sm"
-                              type="text"
-                              value={user.email}
-                              onChange={(event) => {
-                                user.nom = event.target.value;
-                                setData(data.slice());
-                              }}
-                            ></input>
-                          </td>
-                          <td>
-                            <input
-                              class="form-control form-control-sm"
-                              type="text"
-                              value={user.password}
-                              onChange={(event) => {
-                                user.nom = event.target.value;
+                                excursion.typeEdit = event.target.value;
                                 setData(data.slice());
                               }}
                             ></input>
@@ -200,7 +210,7 @@ function Modal(props) {
                             <div className="tdContainer">
                               <button
                                 onClick={() => {
-                                  modifyUser(user.id);
+                                  modifyExcursion(excursion);
                                 }}
                                 className="btn btn-success btn-sm"
                               >
@@ -209,7 +219,7 @@ function Modal(props) {
                               <button
                                 className="btn btn-secondary btn-sm ms-2"
                                 onClick={() => {
-                                  user.editMode = false;
+                                  excursion.editMode = false;
                                   setData(data.slice());
                                 }}
                               >
@@ -239,4 +249,4 @@ function Modal(props) {
     </div>
   );
 }
-export default Modal;
+export default ExcursionModal;
